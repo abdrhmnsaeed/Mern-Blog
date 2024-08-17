@@ -21,7 +21,7 @@ app.use(upload());
 app.use('/uploads', express.static(`${__dirname}/uploads`));
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '..', 'client/build')));
 
 // API routes
 app.use('/api/users', userRoutes);
@@ -29,7 +29,7 @@ app.use('/api/posts', postRoutes);
 
 // Fallback route to serve index.html for client-side routes
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..','client', 'build', 'index.html'));
 });
 
 // Error handling

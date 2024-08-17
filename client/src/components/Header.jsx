@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-// import Logo from '../images/logo.png'
+import Logo from '../images/logo2.png'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlineClose } from 'react-icons/ai'
 import { UserContext } from '../context/userContext'
@@ -19,7 +19,7 @@ const Header = () => {
         <nav>
             <div className="container nav__container">
                 <Link to="/" className='nav__logo' onClick={closeNavHandler}>
-                    {/* <img src={Logo} alt="Navbar Logo" /> */}
+                    <img src={Logo} alt="Navbar Logo" />
                 </Link>
                 {currentUser?.id && isNavShowing && <ul className="nav__menu">
                     <li><Link to={`/profile/${currentUser?.id}`} onClick={closeNavHandler}>{currentUser?.name}</Link></li>

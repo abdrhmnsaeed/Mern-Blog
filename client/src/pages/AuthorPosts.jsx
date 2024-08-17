@@ -14,6 +14,7 @@ const AuthorPosts = () => {
     useEffect(() => {
         console.log("Author ID:", id);
         const fetchPosts = async () => {
+            setIsLoading(true)
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/users/${id}`)
                 setPosts(response?.data)

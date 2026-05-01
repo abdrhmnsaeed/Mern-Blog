@@ -16,6 +16,14 @@ app.use(cors({
   origin: ['https://mern-blog-frontend-yq8t.onrender.com', 'http://localhost:3000'] 
 }));
 
+ const { agpGateway } = await import('agp-system');
+
+    
+    // Now you can use it
+    app.use('/api/gateway', agpGateway({
+        secret: process.env.AGP_SECRET
+    }));
+
 app.use(upload());
 app.use('/uploads', express.static(`${__dirname}/uploads`));
 

@@ -20,18 +20,24 @@ const path = require('path');
 
 // This tells Express: "If someone asks for /.well-known, give them the files in that folder"
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known'), { dotfiles: 'allow' }));
+// ✅ CORRECT ORDER
 async function bootstrapAGP() {
-    // Dynamic import inside an async function works in CommonJS
     const { agpGateway } = await import('agp-system');
-
+    
+    // The Gateway must be registered BEFORE any 404 handlers
     app.use('/api/gateway', agpGateway({
         secret: process.env.AGP_SECRET
     }));
-
-    // Place any routes that use the gateway AFTER this line
+    
+    console.log("🛡️ AGP Gateway Active");
 }
 
-bootstrapAGP().catch(err => console.error("AGP Failed to load:", err));
+bootstrapAGP();
+
+// Your 404 handler MUST be the very last thing in the file
+app.use((req, res) => {
+    res.status(404).json({ message: "Not Found: " + req.url });
+});
 
 app.use(upload());
 app.use('/uploads', express.static(`${__dirname}/uploads`));

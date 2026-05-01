@@ -16,6 +16,10 @@ app.use(cors({
   origin: ['https://mern-blog-frontend-yq8t.onrender.com', 'http://localhost:3000'] 
 }));
 
+const path = require('path');
+
+// This tells Express: "If someone asks for /.well-known, give them the files in that folder"
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known'), { dotfiles: 'allow' }));
 async function bootstrapAGP() {
     // Dynamic import inside an async function works in CommonJS
     const { agpGateway } = await import('agp-system');
